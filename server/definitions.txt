@@ -1,0 +1,187 @@
+crud op: create, read, update, delete.
+
+# Definitions of...
+node, express, api, restful
+
+
+/////////////////
+1. Node:
+    Node is a open-source JS runtime environment that allows us to run JS 
+    in the server-side, outside the browser.
+    Built with Chrome's V8 engine, responsible for compiling JS directly into
+    highly optimized machine code.
+    Node is event-driven & non-blocking, meaning it handles multiple tasks
+    simultaneously. This is possible by libuv, a C library which provides to
+    Node with an event-loop and manages async operations such as file system,
+    networking and timers.
+
+    1.1. Chrome's V8 engine:
+        Developed by Google, is a high-performance JS engine that takes
+        JS code and compiles it into native machine code to execute it.
+    
+    1.2. libuv:
+        Node relies on libuv to handle its event loop, core of its async
+        & non-blocking arquitecture. libuv provides underlying mechanism
+        that allows Node to manage I/O operations, such as reading files,
+        handling network requests, interacting with databases.
+        All without blocking the main thread.
+
+
+/////////////////
+2. Express:
+    Minimal & flexible web app framework for Node providing a robust set of
+    features for building web and mobile apps. It simplifies the process of
+    creating server-side apps by offering powerful tools for routing,
+    middleware managements, and handling HTTP requests and responses.
+
+        Core features of Express:
+        
+        -Routing:
+            Powerful and straight forward routing mechanism, allowing to define different
+            HTTP methods (get, post, put, patch, delete and more) and URL paths.
+
+        -Middleware:
+            Series of functions that can process requests before reaching endpoints.
+            Express provides built-in middleware (express.json, express.static) and even
+            own middleware functions for tasks like loggin, authentication, error handling.
+
+        -Template engines and rendering:
+            Express supports various templating engines like EJS, Pug, and Handlebars,
+            which allows to generate dynamic HTML content based on the app's data.
+
+        -Integrations w Databases:
+            Express easily integrates with databases like MongoDB, MySQL, and PostgreSQL
+            through ORMs like Mongoose and Sequilize or by using raw queries.
+
+
+/////////////////
+3. APIs (Application Programming Interface):
+    Is a set of tools, protocols that allows different software apps to communicate
+    and interact with each other. It defines the methods and data formats that apps can use
+    to request and exchange information.
+    APIs act as an intermediary that enables seamless integrations and communication
+    between different software components, systems or plataforms, whether they're in the
+    same system or across different systems.
+
+        Key components of an API:
+
+        -Endpoints:
+            APIs expose specific endpoints, typically as URLs, where different operations
+            can be performed. Each endpoint is tied to a specific resource or functionality,
+            often through HTTP methods (get, post, put, etc).
+
+        -Requests and responses:
+            In an API interaction, a client (a web app, mobile app, or another server)
+            sends a request to the API, which processes the request and returns a response,
+            the request usually consists of:
+
+                -HTTP method: 
+                    Indicates the type of operation (fetching data, creating new data or updating it).
+
+                -Headers:
+                    Provides metadata such a authentication tokens, content type and more.
+                
+                -Parameters:
+                    Can be query params, path params or body params, depending on the API design.
+                    The response contains the requested data (often in JSON or XML format), status codes,
+                    and optional error messages.
+
+        -Authentication & Authorization:
+            APIs often require authentication and authorization (to determine what resorces the client can acess).
+            Common methods include API keys, OAuth tokens and JWTs (JSON Web Tokens).
+
+        -Statelessness:
+            Most modern APis, especially RESTful APIs are stateless, meaning each request is independent and must
+            contain all the necessary info. The server does not store the client's state between requests, leading to
+            better scalability.
+        
+        -Rate limiting & throttling:
+            APIs often implement rate limiting to control the number of requests a client can
+            make within a certain time frame. This ensures fair usage and protects the 
+            API from abuse or overload.
+
+        Types of APIs:
+
+            -REST (Representational State Transfer):
+                RESTful APIs are widely used due to their simplicity and scalability. 
+                They rely on HTTP protocols and treat everything as a resource, with operations defined by HTTP methods (GET, POST, PUT, DELETE).
+
+            -SOAP (Simple Object Access Protocol):
+                SOAP is a protocol-based API standard that uses XML for message formatting and has stricter rules regarding security and transactions, 
+                making it ideal for enterprise-level applications.
+
+            -GraphQL:
+                Unlike REST, which has fixed endpoints, GraphQL allows clients to specify exactly what data they need, 
+                reducing over-fetching and under-fetching of data. It’s often used in scenarios requiring complex data retrieval.
+
+            -WebSockets:
+                Used for real-time communication, WebSocket APIs maintain a persistent connection between the client and server, 
+                allowing data to be sent and received instantly, often used in applications like chat systems or live updates.
+
+            -RPC (Remote Procedure Call):
+                RPC-style APIs (including gRPC) focus on executing procedures or functions on a remote server. 
+                The client sends a request to execute a specific function, and the server returns the result.
+
+
+/////////////////
+4. RESTful API:
+    is an architectural style that leverages the HTTP protocol to interact with resources in a scalable,
+     stateless, and uniform manner. Its combination of simplicity, scalability, and flexibility 
+     has made it a dominant approach for building web services and integrating distributed systems.
+     
+     REST is an acronym for “REpresentational State Transfer” which is simply an architectural style 
+     originally written by Roy Fielding in his doctoral dissertation. 
+     In today’s Internet world, RESTful almost always means an HTTP-based API. 
+     That means it operates in a request-response fashion over HTTP, usually using JSON 
+     as the data format in the request and response bodies.
+     
+     In other words, the caller (or client):
+
+        Makes an HTTP request to a URL…
+         -Using one of the standard HTTP methods (GET, PUT, POST, PATCH, DELETE, etc.)…
+         -With some content (usually JSON) in the body…
+
+        And waits for a response, which:
+         -Indicates status via an HTTP response code
+         -And usually has more JSON in the body.
+
+    The six constraints to have a RESTful API are:
+        
+        1. Uniform Interface. Meaning that this arquitecture uses the HTTP verbs, URIs (resource name)
+                                and HTTP response (status, body).
+        
+        2. Stateless. This means that the server should no contains client state, the server should not
+                        save the client's 'info', each request should have the necessary information for 
+                        the server to process the request.
+
+        3. Client-server. Every RESTful API is built around this idea.
+
+        4. Cacheable. means that responses from the server can be stored (or cached) by clients or intermediaries 
+        (such as proxies) for future reuse. This reduces the need to make repeated requests to the server for the same data,
+         improving performance, reducing latency, and minimizing load on the server.
+
+        How Caching Works:
+        When a client makes a request to the API, the server can indicate in the response whether the data can be cached,
+         for how long, and under what conditions. If the response is cacheable, the client can store it temporarily and
+          reuse it without making a new request to the server.
+
+        5. Layered system. This constraint goes hand-by hand with client-server and cacheable.
+                            And it means that as a client, we wouldn't know if the resource is cached or not,
+                            that's just because it doesn't concern to the client, the server is who will take care of that.
+
+        6. Code on demand
+
+    REST is resource based instead of actions based. It's also a nouns based instead of 
+    verbs, such as a person resource, user resource, address resource...
+    In comparison with verbs it would be like 'get user' when using SOAP-RPC.
+
+    The term of representations is how the resources get manipulated in a RESTful API, in general, they represent
+    part of the resource state and that representation gets transferred between a client and a server.
+    Usually the representations can be in JSON or XML, can also be CSV (Comma Seperate Values) but it's very often
+    for representations to be in JSON, as an example:
+
+        Resource: person (Todd)
+        Service: contact info (GET)
+        Representation: name, address, phone number in JSON or XML format
+
+    

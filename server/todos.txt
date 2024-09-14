@@ -1,0 +1,1 @@
+toDo: text of todo, completed: boolean, id
