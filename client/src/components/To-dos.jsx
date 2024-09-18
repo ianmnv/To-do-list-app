@@ -1,48 +1,41 @@
-import React, { useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 function ToDos() {
+  const [todos, setTodos] = useState([]);
+
   useEffect(() => {
     async function getToDos() {
-      // const todos = await fetch("http://localhost:8000/friends", {
-      //   method: "GET",
-      // });
-      // console.log(todos);
+      const response = await fetch("http://localhost:9000/todos");
+      const todos = await response.json();
+      setTodos(todos);
     }
     getToDos();
   }, []);
 
   return (
     <div className="container-list">
-      <div className="to-do-item">
-        <input type="checkbox" name="input-checkbox" className="checkbox-inp" />
-        <input
-          className="to-do-txt"
-          value="Finish homework"
-          type="text"
-          name="to-do"
-        />
+      {todos.map((item, i) => {
+        return (
+          <div className="to-do-item" key={i}>
+            <input
+              type="checkbox"
+              name="input-checkbox"
+              className="checkbox-inp"
+            />
+            <input
+              className="to-do-txt"
+              value={item.toDo}
+              type="text"
+              name="to-do"
+            />
 
-        <div>
-          <button className="edit-btn">Edit</button>
-          <button className="delete-btn">Delete</button>
-        </div>
-      </div>
-
-      <div className="to-do-item">
-        <input type="checkbox" name="input-checkbox" className="checkbox-inp" />
-        <input
-          className="to-do-txt"
-          value="Walk goyo"
-          type="text"
-          name="to-do"
-        />
-
-        <div>
-          <button className="edit-btn">Edit</button>
-          <button className="delete-btn">Delete</button>
-        </div>
-      </div>
+            <div>
+              <button className="edit-btn">Edit</button>
+              <button className="delete-btn">Delete</button>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
