@@ -1,4 +1,4 @@
-const toDos = [
+const todos = [
   {
     id: 0,
     toDo: "Clean room",
@@ -10,3 +10,5 @@ const toDos = [
     completed: false,
   },
 ];
+
+module.exports = todos;
