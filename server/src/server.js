@@ -1,29 +1,17 @@
-const express = require("express");
-const app = express();
+const http = require("http");
+
+const app = require("./app");
+
+const PORT = 9000;
+
+const server = http.createServer(app);
+server.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
+});
 
 ///////////////////////////////////////////////////////////////////
-// // To-do list server
-
-const toDos = [
-  {
-    id: 0,
-    toDo: "Clean room",
-    completed: false,
-  },
-  {
-    id: 1,
-    toDo: "Walk the dog",
-    completed: false,
-  },
-];
-
-app.get("/api", (req, res) => {
-  res.status(200).json(toDos);
-});
-
-app.listen(8080, () => {
-  console.log("Listening on port 8080");
-});
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 // investigate http methods
 // get: r (read, obtener info), post: c (create, new info), put: u (update, reemplazar),
