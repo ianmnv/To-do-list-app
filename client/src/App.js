@@ -10,6 +10,7 @@ import FullContext from "./FullContext";
 function App() {
   const API_URL = "http://localhost:9000";
   const [todoData, setTodoData] = useState([]);
+  const [submitted, setSubmitted] = useState(false);
 
   const [state, dispatch] = useImmer({
     id: 0,
@@ -21,15 +22,19 @@ function App() {
     const response = await fetch(`${API_URL}/todos`);
     const todos = await response.json();
     setTodoData(todos);
-
-    dispatch((draft) => {
-      draft.id = todoData.length;
-    });
   }
 
   useEffect(() => {
+    if (submitted) {
+      httpGetToDos();
+      setSubmitted(false);
+    }
+  }, [submitted]);
+
+  useEffect(() => {
     httpGetToDos();
-  }, [todoData]);
+    setSubmitted(false);
+  }, []);
 
   async function submitCallback(e) {
     e.preventDefault();
@@ -39,6 +44,7 @@ function App() {
     }
 
     try {
+      setSubmitted(true);
       return await fetch(`${API_URL}/todos`, {
         method: "post",
         body: JSON.stringify(state),
@@ -65,11 +71,12 @@ function App() {
               type="text"
               name="input-to-do"
               id="input-to-do"
-              onChange={(e) =>
+              onChange={(e) => {
                 dispatch((draft) => {
                   draft.toDo = e.target.value;
-                })
-              }
+                  draft.id = todoData.length;
+                });
+              }}
             />
             <button id="btn-save">Save</button>
           </form>
