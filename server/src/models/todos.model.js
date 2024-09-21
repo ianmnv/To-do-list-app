@@ -11,4 +11,8 @@ const todos = [
   },
 ];
 
-module.exports = todos;
+function addNewTodo(data) {
+  todos.push(data);
+}
+
+module.exports = { todos, addNewTodo };

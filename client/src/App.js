@@ -29,7 +29,7 @@ function App() {
 
   useEffect(() => {
     httpGetToDos();
-  }, []);
+  }, [todoData]);
 
   async function submitCallback(e) {
     e.preventDefault();
@@ -43,7 +43,7 @@ function App() {
         method: "post",
         body: JSON.stringify(state),
         headers: {
-          "Content-type": /json/,
+          "Content-type": "application/json",
         },
       });
     } catch (error) {
